@@ -128,14 +128,20 @@ export const updateStatus = async (req,res) => {
             });
         };
         //update status 
-
-        applicantion.status = status.toLowerCase();
-        await applicantion.save();
-
-        return res.status(200).json({
-            message:"Status updated successfully.",
-            success:true
-        })
+        // if(applicantion.status)
+        console.log("in update status api",applicantion.status);
+        if(applicantion.status==='pending'){
+            applicantion.status = status.toLowerCase();
+            await applicantion.save();
+    
+            return res.status(200).json({
+                message:"Status updated successfully.",
+                success:true
+            })
+        }else{
+            console.log("status is already updated ",applicantion.status)
+        }
+      
 
     } catch (error) {
         console.log(error);
