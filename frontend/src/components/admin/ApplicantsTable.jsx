@@ -78,17 +78,28 @@ const ApplicantsTable = () => {
                 {Object.entries(shortListingStatus).map(([key, label]) => {
                   const currentStatus = statusUpdates[item._id];
                   const isStatusSelected = currentStatus === key;
-                  const isOtherStatusSelected = currentStatus && currentStatus !== 'pending' && currentStatus !== key;
-
+                  const isPending = currentStatus === 'pending';
+                  console.log("key",key);
+                  
+                  console.log("hehe",currentStatus);
+                  console.log("hehe2",isPending);
                   return (
-                    !isOtherStatusSelected && (
+                    (isPending || currentStatus === key) && (
                       <Button
                         key={key}
                         onClick={() => statusHandler(key, item._id)}
                         disabled={isStatusSelected}
+                        
                         className={`${
-                          isStatusSelected ? 'bg-gray-600 cursor-not-allowed' : `bg-${key === 'accepted' ? 'green' : 'red'}-700 hover:bg-${key === 'accepted' ? 'green' : 'red'}-600`
+                          isPending
+                            ? `bg-${key === 'accepted' ? 'green' : 'red'}-700 hover:bg-${key === 'accepted' ? 'green' : 'red'}-600`
+                            : 'bg-gray-600 cursor-not-allowed'
                         }`}
+                        
+                        
+                        
+                    
+                        
                       >
                         {key === 'accepted' ? <CircleCheck className="w-4 mr-1" /> : <CircleX className="w-4 mr-1" />}
                         {label}
@@ -106,3 +117,4 @@ const ApplicantsTable = () => {
 };
 
 export default ApplicantsTable;
+
